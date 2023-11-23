@@ -1,0 +1,100 @@
+* {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+
+}
+
+nav * {
+    display: inline;
+    max-width: 100%;
+    float: right;
+}
+
+.navbar {
+    position: static;
+    background-color:  #eca3a3;
+    height: 70px;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.navbar ul li a{
+    text-decoration: none; 
+    font-size: 30px; 
+  
+}
+
+.column {
+    float: left;
+    padding: 10px;
+    height: max-content;
+}
+
+.column.left {
+    background-color: #eca3a3;
+    /* max-width: 100%; */
+    max-height: 100%;
+}
+
+.column.right {
+    background-color: #e6dada;
+    max-height: 100%;
+    /* max-width: 100%; */
+    /* height: 100%; */
+}
+
+.left {
+    max-width: 25%;
+
+}
+
+.right {
+    max-width: 75%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.heading {
+    text-align: left;
+    font-size: 30px;
+    /* padding-bottom: 10px; */
+    padding-top: 10px;
+    padding-left: 0%;
+    color: black;
+
+}
+
+.contact a {
+    text-decoration: none;
+    color: black;
+
+}
+
+.contact a:hover {
+    color: black;
+    max-width: 100%;
+}
+
+/* .contact p{
+    max-width: 100%;
+} */
+
+.heading img {
+    width: 20%;
+    height: auto;
+}
+
+.projects a {
+    /* text-decoration: dashed; */
+    color: black;
+}
+
+.projects a:hover {
+    color: red;
+}

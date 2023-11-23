@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    // not final
+
+<head>
+    <title>
+        Sort numbers
+    </title>
+
+    <style>
+        /* .Options select {
+            width: 100px;
+            height: 500px;
+        } */
+
+        /* *{
+            text-align: center;
+        } */
+    </style>
+</head>
+
+<body>
+    <script>
+
+        function insertValue() {
+            var select = document.getElementById("select"),
+                txtVal = document.getElementById("val").value,
+                newOption = document.createElement("OPTION"),
+                newOptionVal = document.createTextNode(txtVal);
+
+            newOption.appendChild(newOptionVal);
+            select.insertBefore(newOption, select.lastChildNode);
+        }
+
+
+        function sortSelect() {
+            console.log("Sort clicked");
+            var select = document.getElementById("select");
+            var selectedOptions = select.selectedOptions;
+            var values = [];
+
+            for (var i = 0; i < selectedOptions.length; i++) {
+                values.push(parseInt(selectedOptions[i].value));
+            }
+
+            values.sort(function (a, b) {
+                return a - b;
+            });
+
+            var sortedNumbers = values.join(", ");
+
+            document.getElementById("result").value = sortedNumbers;
+        }
+
+
+        function search() {
+            var select = document.getElementById("select");
+            var searchValue = document.getElementById("sear").value;
+
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === searchValue) {
+                    document.getElementById("status").value = "Number found in options";
+                    // alert("Number found in options");
+                    return;
+                }
+                // else
+                // {
+                //     document.getElementById("status").value = "Number not found in options";
+                // }
+            }
+
+            // document.getElementById("status").value = searchValue;
+            document.getElementById("status").value = "Number not found in options";
+            // alert("Number not found in options");
+        }
+
+    </script>
+
+    <div style="border: solid 2px; border-radius: 30px;padding: 30px;">
+        <div style="font-size: large; ">
+            <label>Enter the number : </label>
+            <input type="number" id="val">
+
+
+            <label style="margin-left: 30px; font-size: large;">Sorted numbers:</label>
+            <input type="text" id="result" readonly>
+
+
+            <label style="font-size: large;">Enter the number to search : </label>
+            <input type="number" id="sear">
+
+            <label style="margin-left: 30px; font-size: large;">Element status:</label>
+            <input type="text" id="status" readonly>
+            <br><br>
+
+
+            <button onclick="insertValue();"
+                style="background-color: cadetblue; width: 70px; height: 30px; margin-left: 50px;">Add</button>
+
+
+            <button onclick="sortSelect();"
+                style="background-color: cadetblue; width: 70px; height: 30px; margin-left: 50px;">Sort</button>
+
+
+            <button onclick="search();"
+                style="background-color: cadetblue; width: 70px; height: 30px; margin-left: 50px;">Search</button>
+
+        </div>
+
+        <br>
+
+        <select id="select" multiple="multiple"
+            style="width: 200px; height: 300px; margin-left: 100px;  font-size: large;">
+            <!-- <option value="One">34</option>
+            <option value="Two">54</option> -->
+        </select>
+
+        <!-- <br><br>
+
+        <label style="margin-left: 50px; font-size: large;">Sorted numbers:</label>
+        <input type="text" id="result" readonly> -->
+
+    </div>
+
+
+
+
+</body>
+
+</html>

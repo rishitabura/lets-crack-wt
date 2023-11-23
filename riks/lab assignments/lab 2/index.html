@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            alert message
+        </title>
+        <script>
+            function add()
+            {
+                var n1 = document.getElementById("num1").value;
+                var n2 = document.getElementById("num2").value;
+                alert(parseFloat(n1) + parseFloat(n2));
+            }
+            function sub()
+            {
+                var n1 =document.getElementById("num1").value;
+                var n2 = document.getElementById("num2").value;
+                alert(parseFloat(n1) - parseFloat(n2));
+            }
+            function mul()
+            {
+                var n1 =document.getElementById("num1").value;
+                var n2 = document.getElementById("num2").value;
+                alert(parseFloat(n1) * parseFloat(n2));
+            }
+            function div()
+            {
+                var n1 =document.getElementById("num1").value;
+                var n2 = document.getElementById("num2").value;
+                alert(parseFloat(n1) / parseFloat(n2));
+            }
+        </script>
+        <style>
+            body{
+                background-color:blanchedalmond;
+            }
+
+            body h2{
+                padding-top: 30px;
+            }
+
+            body form{
+                padding-bottom: 30px;
+            }
+          .cal{
+            background-color: darksalmon ;
+            max-width: 450px;
+            margin: auto;
+            
+            text-align: center;
+            max-height: max-content;
+            border-radius: 5%;
+            margin-top: 250px;
+          }
+
+        </style>
+    </head>
+    <body>
+        <div class="cal">
+            <h2>
+                Calculator
+            </h2>
+            <form>
+                <label>Enter first number : </label>
+                <input type="number" id="num1"><br><br>
+                <label>Enter second number : </label>
+                <input type="number" id="num2"><br><br>
+                <input type="submit" value="add" onclick="add();">
+                <input type="submit" value="subtract" onclick="sub();">
+                <input type="submit" value="multiply" onclick="mul();">
+                <input type="submit" value="divide" onclick="div();">
+            </form>
+        </div>
+        
+
+    </body>
+</html>
