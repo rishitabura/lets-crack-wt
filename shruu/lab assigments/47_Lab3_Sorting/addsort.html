@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting</title>
+    <style>
+        body{
+            background-color:aquamarine;
+            margin-left: 300px;
+        }
+        #b{
+            border: 2px solid black;
+            width: 60px;
+            height: 40px;
+            background-color: green;
+            color: aliceblue;
+            border-radius: 10px;
+            margin-left: 10px
+        }
+    </style>
+</head>
+<body>
+    <input type="number" id="numberInput" >
+    <button onclick="addElement()" id="b">Add</button>
+    <br>
+    <br>
+    <br>
+    <select multiple="multiple" name="numbers" id="num" style="width: 200px; height: 300px;"></select>
+    <button onclick="sortArray()" id="b">Sort</button>
+    <button onclick="clearElements()" id="b">Clear</button>
+    <br>
+    <br>
+    <br>
+    <input type="number" id="searchInput">
+    <button onclick="searchElement()" id="b">Search</button>
+    <script>
+        var selectSource = document.getElementById("num");
+        var numberInput = document.getElementById("numberInput");
+        var searchInput = document.getElementById("searchInput");
+        var selectedValues = [];
+
+        function addElement() {
+            var number = parseInt(numberInput.value);
+            if (isNaN(number)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+            var option = document.createElement("option");
+            option.value = number;
+            option.text = number;
+            selectSource.appendChild(option);
+            selectedValues.push(number);
+            numberInput.value = "";
+        }
+        function searchElement() {
+            var number = parseInt(searchInput.value);
+            if (isNaN(number)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+            if (selectedValues.includes(number)) {
+                alert("Element " + number + " exists.");
+            } else {
+                alert("Element " + number + " does not exist.");
+            }
+        }
+
+        function sortArray() {
+            var sortedArray = selectedValues.slice().sort(function(a, b) {
+                return a - b;
+            });
+            alert("Sorted Array: " + sortedArray.join(", "));
+        }
+        function clearElements() {
+            selectSource.innerHTML = "";
+            selectedValues = [];
+        }
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Add Number</title>
+    <style>
+        /* .body {
+            background-color: cadetblue;
+        } */
+        .container {
+            margin: 10px 50px;
+            display: flex;
+            align-items: center;
+        }
+        .number-input {
+            background-color: antiquewhite;
+            margin: 10px 20px;
+            padding: 10px;
+            width: 150px;
+        }
+        .add-button {
+            background-color: aqua;
+            padding: 10px;
+            margin-left: 10px;
+        }
+        .number-list {
+            margin: 10px 70px;
+        }
+        .options {
+            margin: 10px 70px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <div class="container">
+            <input type="number" class="number-input" id="inputNumber" placeholder="Enter a number">
+            <button class="add-button" onclick="addNumber()">Add</button>
+        </div>
+        <select class="number-list" id="numberList"></select>
+        <div class="options">
+            <button class="sort" onclick="sort()">Sort</button>
+            <button class="search" onclick="search()">Search</button>
+            <button class="clear" onclick="clear()">Clear</button>
+        </div>
+    </div>
+    <script>
+        function addNumber() {
+            var input = document.getElementById("inputNumber");
+            var numberList = document.getElementById("numberList");
+            var numbers = input.value.split(",").map(num => num.trim());
+
+            numbers.forEach(function(number) {
+                if (number !== "") {
+                    var option = document.createElement("option");
+                    option.text = number;
+                    numberList.add(option);
+                }
+            });
+
+            input.value = "";
+        }
+
+        function sort() {
+            // Sorting logic goes here
+        }
+
+        function search() {
+            // Searching logic goes here
+        }
+
+        function clear() {
+            var numberList = document.getElementById("numberList");
+            numberList.innerHTML = "";
+        }
+    </script>
+</body>
+</html> -->

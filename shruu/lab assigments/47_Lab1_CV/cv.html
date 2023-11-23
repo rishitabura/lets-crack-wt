@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your CV</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .profile-photo {
+            width: 100px; 
+            height: 100px;
+            border-radius: 50%; 
+            margin-right: 20px;
+        }
+
+        .header-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        .container {
+            position: relative;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <video autoplay loop muted>
+        <source src="pexels_videos_2541974 (1080p).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+
+    <div class="header">
+        <img src="profile.jpeg" alt="Profile Photo" class="profile-photo">
+        <div class="header-info">
+            <h1>Shruti Borude</h1>
+            <p>Email: shrutiborude311@gmail.com</p>
+            <p>Contact: 9975040377</p>
+        </div>
+    </div>
+
+
+    <div class="navbar">
+        <a href="#aboutMe" onclick="scrollToSection('aboutMe')">About Me</a>
+        <a href="#experience" onclick="scrollToSection('experience')">Qualifications</a>
+        <a href="#education" onclick="scrollToSection('education')">Projects</a>
+    </div>
+
+    <!-- Main content section -->
+    <div class="container">
+        <div class="main-content">
+            <h2 id="aboutMe">About Me</h2>
+            <p>I am a dedicated and passionate engineering student with a strong foundation in Computer. <br>
+                Throughout my academic career, I have excelled in courses and have consistently demonstrated an aptitude for problem-solving, critical thinking, teamwork, etc.<br>
+                I am particularly enthusiastic about Technology, and I am driven by the potential to make a meaningful impact in this field. <br>
+                I am constantly seeking opportunities to apply my knowledge and skills to real-world challenges.<br>
+                
+                </p>
+            <h2 id="experience">Qualifications</h2>
+            <div class="experience">
+                
+                <p>SSC: 90%  HSC: 89%<br>
+                    First year engineering: 9.76<br>
+                    Second year engineering: 8.7
+                </p>
+            </div>
+
+            <h2 id="education">Projects</h2>
+            <div class="education">
+                
+                <p>
+                    <li>Student Project Management System</li>
+                    <li>Thyroid Disease Prediction Using Machine Learning Techniques</li>
+                    <li>Travel website: TravSite</li>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>
