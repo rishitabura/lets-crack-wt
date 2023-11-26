@@ -24,7 +24,7 @@ function calculate($units)
         $bill =  $temp + ($remaining_units * $fourth);
     }
 
-    return number_format((float) $bill, 2, '.', '');
+    return $bill;
 }
 
 if (isset($_POST['submit'])) {
@@ -38,6 +38,7 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 

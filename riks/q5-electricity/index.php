@@ -6,7 +6,7 @@
     <title>Electricity Bill</title>
 </head>
 <body>
-    <form action="elec.php" method="post"></form>
+    <form action="action.php" method="post"></form>
     Account no : <input type="number" name="number">
     Name : <input type="text" name="name">
     Units: <input type="number" name="units">
