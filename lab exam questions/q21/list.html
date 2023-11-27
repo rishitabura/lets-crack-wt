@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery List Copy</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+    <h1>List Copy Example</h1>
+
+    <h2>Source List</h2>
+    <select id="sourceList" multiple>
+        <option>Item 1</option>
+        <option>Item 2</option>
+        <option>Item 3</option>
+        <option>Item 4</option>
+    </select>
+
+    <button id="copyButton">Copy Selected</button>
+
+    <h2>Destination List</h2>
+    <ul id="destinationList">
+        <!-- Destination list will be populated dynamically -->
+    </ul>
+
+    <script>
+        $(document).ready(function () {
+            // Event handler for the copy button
+            $('#copyButton').click(function () {
+                // Find selected items in the source list
+                $('#sourceList option:selected').each(function () {
+                    // Clone the selected item and append it to the destination list
+                    $('#destinationList').append($('<li>').text($(this).text()));
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
