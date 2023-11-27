@@ -17,13 +17,13 @@
         <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Connect to the database
-            $conn = mysqli_connect('localhost', 'root', '', 'vit_results');
+            $conn = mysqli_connect('localhost', 'root', '', 'result');
 
             $prn = $_POST['prn'];
 
             // Query to fetch results for the given PRN number
-            $query = "SELECT subject, mse_marks, ese_marks FROM results WHERE prn_no = '$prn'";
-            $result = mysqli_query($conn, $query);
+            $query = "SELECT subject, mse_marks, ese_marks FROM result WHERE prn_no = '$prn'";
+            $result = mysqli_query($con, $query);
 
             if (mysqli_num_rows($result) > 0) {
         ?>
@@ -42,16 +42,16 @@
                         $total_ese = 0;
                         $ftotal = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $subject = $row['subject'];
-                            $mse_marks = $row['mse_marks'];
-                            $ese_marks = $row['ese_marks'];
-                            $total_marks = $mse_marks + $ese_marks;
-                            $total_mse += $mse_marks;
-                            $total_ese += $ese_marks;
+                            $sub = $row['sub'];
+                            $mse_marks = $row['mse'];
+                            $ese_marks = $row['ese'];
+                            $total_marks = $mse + $ese;
+                            $total_mse += $mse;
+                            $total_ese += $ese;
                             $ftotal += $total_marks;
                         ?>
                             <tr>
-                                <td><?= $subject ?></td>
+                                <td><?= $sub ?></td>
                                 <td><?= $mse_marks ?></td>
                                 <td><?= $ese_marks ?></td>
                                 <td><?= $total_marks ?></td>
@@ -72,7 +72,7 @@
                 echo '<div class="message error">No results found for the given PRN number.</div>';
             }
             // Close the database connection
-            mysqli_close($conn);
+            mysqli_close($con);
         }
         ?>
     </div>
