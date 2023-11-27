@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Operations</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding: 50px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .entity-list {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Integer Array Operations -->
+        
+        <div id="integerArray">
+            <!-- sort -->
+            <h2>Integer Array Operations</h2>
+            <div>
+                <label for="integerInput">Enter integers separated by commas:</label>
+                <input type="text" id="integerInput" class="form-control">
+            </div>
+            <button onclick="performIntegerOperations()" class="btn btn-primary mt-2">Perform Operations</button>
+
+            <!-- Result -->
+            <div class="result-container mt-3">
+                <h4>Sorted Array:</h4>
+                <p id="sortedArrayResult"></p>
+            </div>
+
+            <!-- Search -->
+            <div>
+                <label for="integerInput">Enter integer to search</label>
+                <input type="text" id="integerSearchInput" class="form-control">
+            </div>
+            <button onclick="performSearchOperations()" class="btn btn-primary mt-2">Perform Operations</button>
+
+            <!-- Result  -->
+            <div class="result-container mt-3">
+                <h4>Search Result:</h4>
+                <p id="searchResult"></p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Named Entity Array Operations -->
+        <div id="entityArray">
+            <!-- sort -->
+            <h2>Named Entity Array Operations</h2>
+            <div>
+                <label for="entityInput">Enter named entities separated by commas:</label>
+                <input type="text" id="entityInput" class="form-control">
+            </div>
+            <button onclick="performEntityOperations()" class="btn btn-primary mt-2">Perform Operations</button>
+
+            <!-- Result  -->
+            <div class="result-container mt-3">
+                <h4>Sorted Array:</h4>
+                <ul id="sortedEntityArrayResult" class="entity-list"></ul>
+            </div>
+
+            <!-- Search -->
+            <div>
+                <label for="entityInput">Enter name you want to search in array</label>
+                <input type="text" id="entitySearchInput" class="form-control">
+            </div>
+            <button onclick="performEntitySearchOperations()" class="btn btn-primary mt-2">Perform Operations</button>
+
+            
+            <!-- Result  -->
+            <div class="result-container mt-3">
+                <h4>Search Result:</h4>
+                <p id="entitySearchResult"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        function performIntegerOperations() {
+            var input = document.getElementById('integerInput').value;
+            var integerArray = input.split(',').map(function (item) {
+                return parseInt(item.trim());
+            });
+
+            var sortedArray = [...integerArray].sort((a, b) => a - b);
+
+            document.getElementById('sortedArrayResult').innerText = sortedArray.join(', ');
+        }
+
+        function performSearchOperations() {
+            var input = document.getElementById('integerInput').value;
+            var integerArray = input.split(',').map(function (item) {
+                return parseInt(item.trim());
+            });
+
+            var searchValue = document.getElementById('integerSearchInput').value;
+            var searchResult = integerArray.includes(parseInt(searchValue));
+
+            document.getElementById('searchResult').innerText = searchResult
+                ? `${searchValue} found in the array.`
+                : `${searchValue} not found in the array.`;
+
+        }
+
+        function performEntityOperations() {
+            var input = document.getElementById('entityInput').value;
+            var entityArray = input.split(',').map(function (item) {
+                return item.trim();
+            });
+
+            var sortedEntityArray = [...entityArray].sort();
+
+            document.getElementById('sortedEntityArrayResult').innerHTML = sortedEntityArray
+                .map(entity => `<li>${entity}</li>`)
+                .join('');
+        }
+
+
+        function performEntitySearchOperations()
+        {
+            var input = document.getElementById('entityInput').value;
+            var entityArray = input.split(',').map(function (item) {
+                return item.trim();
+            });
+
+            var searchEntity = document.getElementById('entitySearchInput').value;
+            var entitySearchResult = entityArray.includes(searchEntity);
+            document.getElementById('entitySearchResult').innerText = entitySearchResult
+                ? `${searchEntity} found in the array.`
+                : `${searchEntity} not found in the array.`;
+
+        }
+    </script>
+
+</body>
+
+</html>
