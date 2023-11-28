@@ -9,6 +9,7 @@
 <body>
     <h1>Admin Dashboard</h1>
     <h2>Complaint List</h2>
-    <!-- Display the complaint list from the database -->
+    
+    
 </body>
 </html>
