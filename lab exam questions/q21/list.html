@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jQuery List Copy</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+        select {
+            width: 200px;
+            height: 200px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>List Copy Example</h1>
+    <div>
+        <div class="input-section">
+            <label>Enter the number :</label>
+            <input type="number" id="val">
+            <button onclick="insertValue()">Add</button>
+        </div>
+        <div class="select-section">
+            <select id="select" multiple="multiple">
+                <!-- Options will be added here -->
+            </select>
+        </div>
+    </div>
+    <!-- <h1>List Copy Example</h1>
 
     <h2>Source List</h2>
     <select id="sourceList" multiple>
@@ -16,7 +40,7 @@
         <option>Item 2</option>
         <option>Item 3</option>
         <option>Item 4</option>
-    </select>
+    </select> -->
 
     <button id="copyButton">Copy Selected</button>
 
@@ -30,13 +54,24 @@
             // Event handler for the copy button
             $('#copyButton').click(function () {
                 // Find selected items in the source list
-                $('#sourceList option:selected').each(function () {
+                $('#select option:selected').each(function () {
                     // Clone the selected item and append it to the destination list
                     $('#destinationList').append($('<li>').text($(this).text()));
                 });
             });
         });
+
+
+        function insertValue() {
+            // var select = document.getElementById("select");
+            var txtVal = document.getElementById("val").value;
+            var newOption = document.createElement("option");
+            newOption.value = txtVal;
+            newOption.textContent = txtVal;
+            select.appendChild(newOption);
+        }
     </script>
 
 </body>
+
 </html>
