@@ -1,0 +1,212 @@
+18. Springboot to add delete list students records using sql, java persistent api
+
+Project Structure:
+Create a Spring Boot project with the following structure:
+lua
+springboot-student-records/
+|-- src/
+|   |-- main/
+|       |-- java/
+|           |-- com/
+|               |-- example/
+|                   |-- student/
+|                       |-- StudentApplication.java
+|                       |-- controller/
+|                           |-- StudentController.java
+|                       |-- model/
+|                           |-- Student.java
+|                       |-- repository/
+|                           |-- StudentRepository.java
+|                       |-- service/
+|                           |-- StudentService.java
+|                           |-- StudentServiceImpl.java
+|-- pom.xml
+
+2. Dependencies (pom.xml):
+<dependencies>
+    <!-- Spring Boot Starter Web -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- Spring Boot Starter Data JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <!-- H2 Database (for simplicity, you can replace it with a different database) -->
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+</dependencies>
+
+3. Model (Student.java):
+package com.example.student.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private int age;
+
+    // Constructors, getters, and setters
+}
+
+4. Repository (StudentRepository.java):
+package com.example.student.repository;
+
+import com.example.student.model.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    // Additional methods if needed
+}
+
+5. Service (StudentService.java and StudentServiceImpl.java):
+package com.example.student.service;
+
+import com.example.student.model.Student;
+
+import java.util.List;
+
+public interface StudentService {
+    List<Student> getAllStudents();
+    Student getStudentById(Long id);
+    Student addStudent(Student student);
+    void deleteStudent(Long id);
+}
+
+-----------------------------------------------------------------
+package com.example.student.service;
+
+import com.example.student.model.Student;
+import com.example.student.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
+}
+
+6. Controller (StudentController.java):
+package com.example.student.controller;
+
+import com.example.student.model.Student;
+import com.example.student.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+    private final StudentService studentService;
+
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable Long id) {
+        return studentService.getStudentById(id);
+    }
+
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+    }
+}
+
+7. Application (StudentApplication.java):
+package com.example.student;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class StudentApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(StudentApplication.class, args);
+    }
+}
+
+8. Application Properties (src/main/resources/application.properties):
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+9. Usage:
+1.	Run the Spring Boot application.
+2.	Open Postman to test the endpoints.
+•	List all students:
+•	Method: GET
+•	URL: http://localhost:8080/students
+•	Get student by ID:
+•	Method: GET
+•	URL: http://localhost:8080/students/{id}
+•	Add a new student:
+•	Method: POST
+•	URL: http://localhost:8080/students
+•	Body: JSON with student details, for example:
+
+json
+{ "name": "Alice", "age": 20 } 
+
+
+•	Delete a student by ID:
+•	Method: DELETE
+•	URL: http://localhost:8080/students/{id}
+
