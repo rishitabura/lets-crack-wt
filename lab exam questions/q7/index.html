@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>VIT Projects</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">VIT Projects</h2>
+
+        <ul class="nav nav-pills" id="projectTabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="sdp-tab" data-toggle="pill" href="#sdp">SDP</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="edi-tab" data-toggle="pill" href="#edi">EDI</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="dt-tab" data-toggle="pill" href="#dt">DT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="course-tab" data-toggle="pill" href="#course">Course Projects</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="sdp">
+                <h3>Software Development Project (SDP)</h3>
+                <p>Information about SDP projects goes here.</p>
+            </div>
+            <div class="tab-pane fade" id="edi">
+                <h3>Electronic Data Interchange (EDI)</h3>
+                <p>Information about EDI projects goes here.</p>
+            </div>
+            <div class="tab-pane fade" id="dt">
+                <h3>Data Structures and Algorithms (DT)</h3>
+                <p>Information about DT projects goes here.</p>
+            </div>
+            <div class="tab-pane fade" id="course">
+                <h3>Course Projects</h3>
+                <p>Information about general course projects goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#projectTabs a').on('shown.bs.tab', function (e) {
+                // Do something when a tab is selected
+            });
+        });
+    </script>
+
+</body>
+
+</html>
