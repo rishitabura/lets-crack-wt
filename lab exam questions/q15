@@ -1,0 +1,285 @@
+15. Online shopping system where farmers can sell and buy agricultural produce php
+
+
+Sql
+
+-- Create a database
+CREATE DATABASE IF NOT EXISTS online_shopping_system;
+USE online_shopping_system;
+
+-- Create a table for users
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100) NOT NULL
+);
+
+-- Create a table for products
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    farmer_id INT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    image_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (farmer_id) REFERENCES users(id)
+);
+
+-- Create a table for orders
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+
+
+Config.php
+
+<?php
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "online_shopping_system";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+
+
+Register.php
+
+<?php
+include('config.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $fullName = $_POST['fullName'];
+
+    $sql = "INSERT INTO users (username, password, full_name) VALUES ('$username', '$password', '$fullName')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Registration successful!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+
+
+
+Login.php
+
+<?php
+include('config.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT id, username, password FROM users WHERE username='$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            session_start();
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            header("Location: index.php");
+        } else {
+            $error_message = "Invalid username or password";
+        }
+    } else {
+        $error_message = "Invalid username or password";
+    }
+}
+
+$conn->close();
+?>
+
+
+
+Logout.php
+
+<?php
+session_start();
+session_unset();
+session_destroy();
+header("Location: login.php");
+exit();
+?>
+
+
+
+Index.php
+
+<?php
+session_start();
+include('config.php');
+
+// Fetch products from the database
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    $products = [];
+}
+
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Online Shopping System</h1>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <p>Welcome, <?php echo $_SESSION['username']; ?>! <a href="logout.php">Logout</a></p>
+        <?php else: ?>
+            <p><a href="login.php">Login</a> or <a href="register.php">Register</a></p>
+        <?php endif; ?>
+    </header>
+
+    <main>
+        <section class="product-list">
+            <?php foreach ($products as $product): ?>
+                <div class="product">
+                    <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>">
+                    <h2><?php echo $product['name']; ?></h2>
+                    <p><?php echo $product['description']; ?></p>
+                    <p>$<?php echo $product['price']; ?></p>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <form action="add_to_cart.php" method="post">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" name="quantity" value="1" min="1">
+                            <input type="submit" value="Add to Cart">
+                        </form>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </section>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <section class="shopping-cart">
+                <h2>Shopping Cart</h2>
+                <!-- Display shopping cart content here -->
+            </section>
+        <?php endif; ?>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Online Shopping System</p>
+    </footer>
+</body>
+</html>
+
+
+
+Add_to_cart.php
+
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Validate quantity (e.g., ensure it's a positive integer)
+
+    // Store the product in the shopping cart session variable
+    $_SESSION['cart'][$product_id] = isset($_SESSION['cart'][$product_id])
+        ? $_SESSION['cart'][$product_id] + $quantity
+        : $quantity;
+
+    // Redirect back to the index page
+    header("Location: index.php");
+} else {
+    // Redirect to the login page if not logged in
+    header("Location: login.php");
+    exit();
+}
+?>
+
+
+
+
+Css
+
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header p {
+    margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.shopping-cart {
+    flex: 1;
+    margin-left: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
