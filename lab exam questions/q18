@@ -22,6 +22,7 @@ springboot-student-records/
 |                           |-- StudentServiceImpl.java
 |-- pom.xml
 
+
 2. Dependencies (pom.xml):
 <dependencies>
     <!-- Spring Boot Starter Web -->
@@ -42,6 +43,7 @@ springboot-student-records/
     </dependency>
 </dependencies>
 
+
 3. Model (Student.java):
 package com.example.student.model;
 
@@ -61,6 +63,7 @@ public class Student {
     // Constructors, getters, and setters
 }
 
+
 4. Repository (StudentRepository.java):
 package com.example.student.repository;
 
@@ -70,6 +73,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     // Additional methods if needed
 }
+
 
 5. Service (StudentService.java and StudentServiceImpl.java):
 package com.example.student.service;
@@ -125,6 +129,7 @@ public class StudentServiceImpl implements StudentService {
     }
 }
 
+
 6. Controller (StudentController.java):
 package com.example.student.controller;
 
@@ -166,6 +171,7 @@ public class StudentController {
     }
 }
 
+
 7. Application (StudentApplication.java):
 package com.example.student;
 
@@ -179,6 +185,7 @@ public class StudentApplication {
     }
 }
 
+
 8. Application Properties (src/main/resources/application.properties):
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.driverClassName=org.h2.Driver
@@ -187,6 +194,7 @@ spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
+
 
 9. Usage:
 1.	Run the Spring Boot application.
